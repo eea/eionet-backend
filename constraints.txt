@@ -1,0 +1,9 @@
+-f https://eggrepo.eea.europa.eu/simple/
+-f https://eggrepo.eea.europa.eu/d/eea.ldapadmin/
+-f https://eggrepo.eea.europa.eu/d/eea.usersdb/
+-f https://eggrepo.eea.europa.eu/d/eea.userseditor/
+-f https://eggrepo.eea.europa.eu/d/naaya.ldapdump/
+eea.ldapadmin==4.4
+eea.usersdb==2.7
+eea.userseditor==2.6
+naaya.ldapdump==1.1.0

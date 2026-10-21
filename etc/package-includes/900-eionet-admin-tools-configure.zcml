@@ -1,0 +1,12 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:ld="http://ns.eaudeweb.ro/naaya.ldapdump">
+
+  <!-- The add-ons have no plone.autoinclude entry points -->
+  <include package="eea.ldapadmin" />
+  <include package="eea.userseditor" />
+
+  <!-- Must match $LDAP_DISK_STORAGE/config.yaml -->
+  <ld:reader path="/data/ldapdump/config.yaml" />
+
+</configure>

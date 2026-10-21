@@ -1,0 +1,8 @@
+{
+  "site_id": "Plone",
+  "title": "Eionet Admin Tools",
+  "description": "Eionet LDAP account management tools",
+  "default_language": "en",
+  "portal_timezone": "Europe/Copenhagen",
+  "setup_content": false
+}

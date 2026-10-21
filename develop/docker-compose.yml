@@ -1,0 +1,79 @@
+services:
+  backend:
+    build: .
+    platform: linux/amd64
+    ports:
+    - "8080:8080"
+    depends_on:
+    - ldap
+    - mailtrap
+    environment:
+      SITE: Plone
+      TYPE: classic
+      ANSWERS: eionet
+      PROFILES: ""
+      LDAP_DISK_STORAGE: /data/ldapdump
+      # Read by scripts/setup_tools.py (local test LDAP only)
+      LDAP_SERVER: "ldap:636"
+      LDAP_ADMIN_DN: "cn=Eionet Administrator,o=EIONET,l=Europe"
+      LDAP_ADMIN_PW: "secret" #betterleaks:allow
+      LDAP_SECONDARY_DN: "cn=Accounts Browser,o=EIONET,l=Europe"
+      LDAP_SECONDARY_PW: "secret" #betterleaks:allow
+      MAILHOST: mailtrap
+      MAILPORT: "25"
+    volumes:
+    - ./sources:/app/sources
+    - ldapdump_data:/data/ldapdump
+    - plone_data:/data
+
+  ldap:
+    build: ./ldap
+    platform: linux/amd64
+    ports:
+    - "1636:636"
+    environment:
+      LDIF_SEED_URL: "file:/seed.ldif"
+      LDIF_SEED_SUFFIX: "o=EIONET,l=Europe"
+      LDAP_UID: "55"
+      LDAP_GID: "55"
+      LDAPSERVERS: "ldap:/// ldaps:///"
+      SLAPD_INCLUDES: |
+        include /etc/openldap/schema/core.schema
+        include /etc/openldap/schema/cosine.schema
+        include /etc/openldap/schema/inetorgperson.schema
+        include /etc/openldap/schema/nis.schema
+        include /etc/openldap/schema/eionet.schema
+        TLSCertificateFile /etc/pki/tls/certs/server.crt
+        TLSCertificateKeyFile /etc/pki/tls/private/server.key
+      SLAPD_CONF: |
+        pidfile /var/run/openldap/slapd.pid
+        argsfile /var/run/openldap/slapd.args
+        sizelimit unlimited
+      SLAPD_DATABASE: |
+        database mdb
+        maxsize 104857600
+        suffix "o=EIONET,l=Europe"
+        rootdn "cn=Eionet Administrator,o=EIONET,l=Europe"
+        rootpw secret
+        directory /var/lib/ldap
+        index objectClass,uid,cn,mail,uniqueMember,owner,permittedPerson eq
+        access to attrs=userPassword
+          by self write
+          by anonymous auth
+          by * none
+        access to *
+          by users read
+          by * none
+    volumes:
+    - ldap_data:/var/lib/ldap
+
+  mailtrap:
+    image: eaudeweb/mailtrap
+    ports:
+    - "8888:80"
+    - "2525:25"
+
+volumes:
+  ldap_data: {}
+  ldapdump_data: {}
+  plone_data: {}

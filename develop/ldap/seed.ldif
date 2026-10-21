@@ -1,0 +1,149 @@
+# Fake Eionet directory for local development. All passwords: "secret".
+# Layout matches eea.usersdb defaults (ou=Users / ou=Organisations / ou=Roles).
+
+dn: o=EIONET,l=Europe
+objectClass: top
+objectClass: organization
+o: EIONET
+
+dn: cn=Accounts Browser,o=EIONET,l=Europe
+objectClass: top
+objectClass: organizationalRole
+objectClass: simpleSecurityObject
+cn: Accounts Browser
+userPassword: secret
+
+dn: ou=Users,o=EIONET,l=Europe
+objectClass: top
+objectClass: organizationalUnit
+ou: Users
+
+dn: ou=Organisations,o=EIONET,l=Europe
+objectClass: top
+objectClass: organizationalUnit
+ou: Organisations
+
+dn: ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: organizationalUnit
+ou: Roles
+
+# --- Users ---
+
+dn: uid=testadmin,ou=Users,o=EIONET,l=Europe
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: eionetAccount
+uid: testadmin
+cn: Test Admin
+givenName: Test
+sn: Admin
+mail: testadmin@example.com
+title: Helpdesk
+userPassword: secret
+
+dn: uid=anna,ou=Users,o=EIONET,l=Europe
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: eionetAccount
+uid: anna
+cn: Anna Jensen
+givenName: Anna
+sn: Jensen
+mail: anna@example.com
+title: National Focal Point
+o: dk_mst
+userPassword: secret
+
+dn: uid=marco,ou=Users,o=EIONET,l=Europe
+objectClass: top
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+objectClass: eionetAccount
+uid: marco
+cn: Marco Rossi
+givenName: Marco
+sn: Rossi
+mail: marco@example.com
+title: Data reporter
+o: it_ispra
+userPassword: secret
+
+# --- Organisations ---
+
+dn: cn=dk_mst,ou=Organisations,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: organizationGroup
+objectClass: labeledURIObject
+objectClass: hierarchicalGroup
+cn: dk_mst
+o: Danish Environmental Protection Agency
+c: dk
+labeledURI: https://example.com/mst
+uniqueMember: uid=anna,ou=Users,o=EIONET,l=Europe
+
+dn: cn=it_ispra,ou=Organisations,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: organizationGroup
+objectClass: labeledURIObject
+objectClass: hierarchicalGroup
+cn: it_ispra
+o: ISPRA
+c: it
+labeledURI: https://example.com/ispra
+uniqueMember: uid=marco,ou=Users,o=EIONET,l=Europe
+
+# --- Roles (role "a-b-c" lives at cn=a-b-c,cn=a-b,cn=a,ou=Roles) ---
+
+dn: cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet
+ou: eionet
+description: Eionet
+uniqueMember:
+permittedSender: owners
+owner: uid=testadmin,ou=Users,o=EIONET,l=Europe
+
+dn: cn=eionet-nfp,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-nfp
+ou: nfp
+description: Eionet National Focal Points
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-nfp-mc,cn=eionet-nfp,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-nfp-mc
+ou: mc
+description: Eionet NFPs - EEA member countries
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-nfp-mc-dk,cn=eionet-nfp-mc,cn=eionet-nfp,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-nfp-mc-dk
+ou: dk
+description: Eionet NFP Denmark
+uniqueMember: uid=anna,ou=Users,o=EIONET,l=Europe
+leaderMember: uid=anna,ou=Users,o=EIONET,l=Europe
+permittedSender: owners
