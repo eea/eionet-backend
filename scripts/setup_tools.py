@@ -71,6 +71,12 @@ FOLDERS = [
     ("directory", "Directory"),
 ]
 
+# Folder -> tool shown when the folder itself is opened
+DEFAULT_PAGES = {
+    "eionet-account-tools": "eionet_account_tools",
+    "profile": "profile-editor",
+}
+
 
 def ensure_folder(site, folder_id, title):
     if folder_id in site.objectIds():
@@ -80,6 +86,13 @@ def ensure_folder(site, folder_id, title):
     api.content.transition(obj=folder, transition="publish")
     logger.info("Created folder /%s", folder_id)
     return folder
+
+
+def set_default_page(site, folder_id, page_id):
+    folder = site[folder_id]
+    if getattr(folder.aq_base, "default_page", None) != page_id:
+        folder.default_page = page_id
+        logger.info("Default page of /%s -> %s", folder_id, page_id)
 
 
 def ensure_tool(site, parent_path, tool_id, title, klass):
@@ -150,6 +163,8 @@ def main(app):
         ensure_folder(site, folder_id, title)
     for parent_path, tool_id, title, klass in TOOLS:
         ensure_tool(site, parent_path, tool_id, title, klass)
+    for folder_id, page_id in DEFAULT_PAGES.items():
+        set_default_page(site, folder_id, page_id)
     configure_mailhost(site)
     write_ldapdump_config()
 
