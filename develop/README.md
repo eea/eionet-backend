@@ -51,14 +51,13 @@ Refresh the SQLite cache that User Admin uses for search and duplicate checks
 ## Known issues (Plone 6 port in progress)
 
 The released add-ons and their `develop` branches do not start on Plone 6.
-The fixes are on `plone6` branches of `eea.ldapadmin` and `eea.userseditor`
-(not pushed yet). Until they are, check them out in `./sources`:
+`sources.ini` therefore uses the `plone6` branches of `eea.ldapadmin` and
+`eea.userseditor` until they are merged and released. If your `./sources`
+checkouts predate this, switch them and rebuild:
 
     git -C sources/eea.ldapadmin checkout plone6
     git -C sources/eea.userseditor checkout plone6
-    docker compose exec backend bin/pip install -f https://eggshop.eaudeweb.ro/ \
-      -e /app/sources/eea.ldapadmin -e /app/sources/eea.userseditor
-    docker compose restart backend
+    make build && make start
 
 Fixed on the `plone6` branches:
 
