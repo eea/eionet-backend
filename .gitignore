@@ -13,3 +13,6 @@ var/
 *.bak
 *~
 .DS_Store
+
+# ZMI exports may contain credentials
+*.zexp
