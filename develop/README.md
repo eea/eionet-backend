@@ -50,22 +50,30 @@ Refresh the SQLite cache that User Admin uses for search and duplicate checks
 
 ## Known issues (Plone 6 port in progress)
 
-The add-ons' `develop` branches do not start on Plone 6 yet. Until the ported
-branches land in `sources.ini`, apply this local, uncommitted fix in `./sources`:
+The released add-ons and their `develop` branches do not start on Plone 6.
+The fixes are on `plone6` branches of `eea.ldapadmin` and `eea.userseditor`
+(not pushed yet). Until they are, check them out in `./sources`:
 
-    grep -rl "from App.class_init import" sources --include='*.py' \
-      | xargs sed -i '' 's/from App.class_init import/from AccessControl.class_init import/'
+    git -C sources/eea.ldapadmin checkout plone6
+    git -C sources/eea.userseditor checkout plone6
+    docker compose exec backend bin/pip install -f https://eggshop.eaudeweb.ro/ \
+      -e /app/sources/eea.ldapadmin -e /app/sources/eea.userseditor
+    docker compose restart backend
 
-With that, the site starts, the tools are created, and they read from LDAP.
-Remaining issues found so far:
+Fixed on the `plone6` branches:
+
+* `App.class_init` (removed in Zope 5) → `AccessControl.class_init`
+* `sparql-client` (pins `dnspython<2`) replaced by `requests`
+* `jellyfish>=1.0`, unpinned `colander`, `naaya.ldapdump>=2.0`, test packages moved to the test extra
+* `yaml.safe_load` in `eionet_profile.py`
+* default view for `/directory/user?uid=…`
+
+Remaining:
 
 | Area | Issue |
 |---|---|
-| Add-ons (Python) | `App.class_init` removed in Zope 5 (`api_tool`, `pwreset_tool`, `roles_editor`, `users_admin`, `users_editor`) |
-| Add-ons (Python) | `yaml.load()` without Loader in `eea.ldapadmin/eionet_profile.py` (fixed in `naaya.ldapdump` 2.0.1) |
-| Add-ons (packaging) | `bin/dump_ldap` is `eea.ldapadmin`'s wrapper, which needs the storage path as an argument and fails from the command line; use `make dump` |
-| Add-ons (deps) | `sparql-client` pins `dnspython<2` (worked around in the Dockerfiles); test-only packages (`plone.app.robotframework`, selenium, …) in `install_requires` |
-| Add-ons (ZCML) | `/directory/user?uid=…` returns the object repr: needs a `browser:defaultView` (works as `/directory/user/index_html?uid=…`) |
+| Image | `dnspython` override in the Dockerfiles: remove once the `plone6` releases are pinned |
+| Add-ons (packaging) | `bin/dump_ldap` is `eea.ldapadmin`'s wrapper, which needs the storage path as an argument; use `scripts/dump_ldap.py` (`make dump`) |
 | UI | `require()` / `requirejs()` in 15 templates: DataTables, jQuery UI, tipsy, select2 do not load |
 | UI | `userdetails/simple.zpt:82`: `int(path('repeat/role/odd'))` fails under Chameleon |
 | UI | Plone 5 markup/classes; links to `www.eionet.europa.eu/styles/eionet2007/*.css` |

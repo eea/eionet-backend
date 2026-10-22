@@ -8,7 +8,7 @@ ENV TYPE=classic \
 
 COPY requirements.txt constraints.txt /app/
 COPY etc/package-includes/ /app/etc/package-includes/
-COPY scripts/eionet.json scripts/setup_tools.py /app/scripts/
+COPY scripts/eionet.json scripts/setup_tools.py scripts/dump_ldap.py /app/scripts/
 
 # sparql-client 3.9.dev1 (via eea.ldapadmin) pins dnspython<2, which fails on
 # Python 3.12 (collections.MutableMapping). It never imports dns, so restore the

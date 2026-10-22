@@ -1,0 +1,6 @@
+# Only Dockerfile inputs are needed in the build context
+*
+!requirements.txt
+!constraints.txt
+!etc/
+!scripts/
