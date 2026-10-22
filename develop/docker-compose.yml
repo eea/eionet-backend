@@ -52,6 +52,10 @@ services:
         pidfile /var/run/openldap/slapd.pid
         argsfile /var/run/openldap/slapd.args
         sizelimit unlimited
+      # Password policy (expiry dates on the profile page), as in production
+      SLAPD_MODULES: |
+        modulepath /usr/lib64/openldap
+        moduleload ppolicy.la
       SLAPD_DATABASE: |
         database mdb
         maxsize 104857600
@@ -60,6 +64,8 @@ services:
         rootpw secret
         directory /var/lib/ldap
         index objectClass,uid,cn,mail,uniqueMember,owner,permittedPerson eq
+        overlay ppolicy
+        ppolicy_default "cn=defaultppolicy,ou=pwpolicies,o=EIONET,l=Europe"
         access to attrs=userPassword
           by self write
           by anonymous auth

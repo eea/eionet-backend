@@ -28,6 +28,20 @@ objectClass: top
 objectClass: organizationalUnit
 ou: Roles
 
+# Password policy read by the profile editor; max age 2 years (730 days)
+dn: ou=pwpolicies,o=EIONET,l=Europe
+objectClass: top
+objectClass: organizationalUnit
+ou: pwpolicies
+
+dn: cn=defaultppolicy,ou=pwpolicies,o=EIONET,l=Europe
+objectClass: top
+objectClass: organizationalRole
+objectClass: pwdPolicy
+cn: defaultppolicy
+pwdAttribute: userPassword
+pwdMaxAge: 63072000
+
 # --- Users ---
 
 dn: uid=testadmin,ou=Users,o=EIONET,l=Europe
@@ -146,4 +160,217 @@ ou: dk
 description: Eionet NFP Denmark
 uniqueMember: uid=anna,ou=Users,o=EIONET,l=Europe
 leaderMember: uid=anna,ou=Users,o=EIONET,l=Europe
+permittedSender: owners
+
+# NRC branch (searched by the profile editor and NFP pages)
+dn: cn=eionet-nrc,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-nrc
+ou: nrc
+description: Eionet National Reference Centres
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-nrc-air,cn=eionet-nrc,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-nrc-air
+ou: air
+description: Eionet NRC Air quality
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-nrc-air-it,cn=eionet-nrc-air,cn=eionet-nrc,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-nrc-air-it
+ou: it
+description: Eionet NRC Air quality - Italy
+uniqueMember: uid=marco,ou=Users,o=EIONET,l=Europe
+permittedSender: owners
+
+# Reportnet branch (searched by the NFP pages)
+dn: cn=reportnet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: reportnet
+ou: reportnet
+description: Reportnet users
+uniqueMember:
+permittedSender: owners
+
+dn: cn=reportnet-awp,cn=reportnet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: reportnet-awp
+ou: awp
+description: Reportnet annual work programme reporters
+uniqueMember:
+permittedSender: owners
+
+# Eionet group branches: one per eea.ldapadmin constants.EIONET_GROUPS entry
+
+dn: cn=eionet-biodiversity1,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-biodiversity1
+ou: biodiversity1
+description: Eionet group biodiversity1
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-biodiversity2,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-biodiversity2
+ou: biodiversity2
+description: Eionet group biodiversity2
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-circulareconomy,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-circulareconomy
+ou: circulareconomy
+description: Eionet group circulareconomy
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-climatechangeadaptation,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-climatechangeadaptation
+ou: climatechangeadaptation
+description: Eionet group climatechangeadaptation
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-climatechangemitigation,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-climatechangemitigation
+ou: climatechangemitigation
+description: Eionet group climatechangemitigation
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-communication,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-communication
+ou: communication
+description: Eionet group communication
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-data,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-data
+ou: data
+description: Eionet group data
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-foodsystems,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-foodsystems
+ou: foodsystems
+description: Eionet group foodsystems
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-foresight,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-foresight
+ou: foresight
+description: Eionet group foresight
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-health,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-health
+ou: health
+description: Eionet group health
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-landsystems,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-landsystems
+ou: landsystems
+description: Eionet group landsystems
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-mobility,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-mobility
+ou: mobility
+description: Eionet group mobility
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-soe,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-soe
+ou: soe
+description: Eionet group soe
+uniqueMember:
+permittedSender: owners
+
+dn: cn=eionet-data-it,cn=eionet-data,cn=eionet,ou=Roles,o=EIONET,l=Europe
+objectClass: top
+objectClass: groupOfUniqueNames
+objectClass: mailListGroup
+objectClass: hierarchicalGroup
+cn: eionet-data-it
+ou: it
+description: Eionet group data - Italy
+uniqueMember: uid=marco,ou=Users,o=EIONET,l=Europe
 permittedSender: owners

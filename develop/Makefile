@@ -48,6 +48,22 @@ setup:			## Create the account tools inside the site (idempotent)
 	docker compose run --rm backend run /app/scripts/setup_tools.py
 	docker compose start backend
 
+.PHONY: testusers
+testusers:		## Plone users named like the LDAP test users (password: plone-test), until LDAP login is set up
+	for u in testadmin anna marco; do \
+	  code=$$(curl -s -o /dev/null -w "%{http_code}" -u admin:admin \
+	    -H "Accept: application/json" -H "Content-Type: application/json" \
+	    -X POST http://localhost:8080/Plone/@users \
+	    -d "{\"username\": \"$$u\", \"email\": \"$$u@example.com\", \"password\": \"plone-test\"}"); \
+	  echo "$$u: $$code (201 created, 400 already exists)"; \
+	done
+
+.PHONY: ldap-reset
+ldap-reset:		## Reload the test LDAP from ldap/seed.ldif (undoes password and profile changes)
+	docker compose rm -sf ldap
+	docker volume rm -f develop_ldap_data
+	docker compose up -d --build ldap
+
 .PHONY: dump
 dump:			## Refresh the naaya.ldapdump SQLite cache from LDAP
 	docker compose exec -u plone backend bin/python -c \
