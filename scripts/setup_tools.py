@@ -56,6 +56,9 @@ TOOLS = [
      "Organisations", OrganisationsEditor),
     ("eionet-account-tools/eionet_account_tools", "roles",
      "Roles Editor", RolesEditor),
+    # Root-level instances linked from Forum, Projects and the NFP pages
+    ("", "ldap-roles", "Roles", RolesEditor),
+    ("", "ldap-organisations", "Organisations", OrganisationsEditor),
     ("", "password-reset", "Password Reset", PasswordResetTool),
     ("profile", "profile-editor", "Eionet account", UsersEditor),
     ("directory", "user", "User details", UserDetails),

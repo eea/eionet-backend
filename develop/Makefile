@@ -20,7 +20,7 @@ SHELL:=bash
 MAKEFLAGS+=--warn-undefined-variables
 MAKEFLAGS+=--no-builtin-rules
 
-IMAGE=eeacms/eionet-admin-tools
+IMAGE=eeacms/eionet-backend
 PLATFORM=linux/amd64
 
 # Top-level targets

@@ -1,4 +1,4 @@
-FROM eeacms/eionet-admin-tools
+FROM eeacms/eionet-backend
 
 RUN runDeps="vim tmux mc" \
  && apt-get update \

@@ -1,4 +1,4 @@
-# Eionet Admin Tools: local development
+# Eionet backend: local development
 
 Runs everything in Docker: Plone 6 backend, a local test LDAP server with the
 Eionet schema and fake data, and mailtrap to catch outgoing email.
