@@ -48,6 +48,11 @@ setup:			## Create the account tools inside the site (idempotent)
 	docker compose run --rm backend run /app/scripts/setup_tools.py
 	docker compose start backend
 
+.PHONY: dump
+dump:			## Refresh the naaya.ldapdump SQLite cache from LDAP
+	docker compose exec -u plone backend bin/python -c \
+	  'from eea.ldapadmin.ldapdump import dump_ldap; dump_ldap("/data/ldapdump")'
+
 .PHONY: stop
 stop:			## Stop all services
 	docker compose stop

@@ -43,6 +43,11 @@ Query it from the host:
 
 To reset the data: `make clean && make start && make setup`.
 
+Refresh the SQLite cache that User Admin uses for search and duplicate checks
+(production runs this from cron):
+
+    make dump
+
 ## Known issues (Plone 6 port in progress)
 
 The add-ons' `develop` branches do not start on Plone 6 yet. Until the ported
@@ -57,7 +62,8 @@ Remaining issues found so far:
 | Area | Issue |
 |---|---|
 | Add-ons (Python) | `App.class_init` removed in Zope 5 (`api_tool`, `pwreset_tool`, `roles_editor`, `users_admin`, `users_editor`) |
-| Add-ons (Python) | `yaml.load()` without Loader in `eea.ldapadmin/eionet_profile.py` and `naaya.ldapdump` (patched in the image for `naaya.ldapdump`) |
+| Add-ons (Python) | `yaml.load()` without Loader in `eea.ldapadmin/eionet_profile.py` (fixed in `naaya.ldapdump` 2.0.1) |
+| Add-ons (packaging) | `bin/dump_ldap` is `eea.ldapadmin`'s wrapper, which needs the storage path as an argument and fails from the command line; use `make dump` |
 | Add-ons (deps) | `sparql-client` pins `dnspython<2` (worked around in the Dockerfiles); test-only packages (`plone.app.robotframework`, selenium, …) in `install_requires` |
 | Add-ons (ZCML) | `/directory/user?uid=…` returns the object repr: needs a `browser:defaultView` (works as `/directory/user/index_html?uid=…`) |
 | UI | `require()` / `requirejs()` in 15 templates: DataTables, jQuery UI, tipsy, select2 do not load |

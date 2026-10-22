@@ -21,6 +21,9 @@ services:
       LDAP_SECONDARY_PW: "secret" #betterleaks:allow
       MAILHOST: mailtrap
       MAILPORT: "25"
+      # Local LDAP uses a self-signed certificate; naaya.ldapdump verifies it
+      # (eea.usersdb does not). Dev only, never set this in production.
+      LDAPTLS_REQCERT: never
     volumes:
     - ./sources:/app/sources
     - ldapdump_data:/data/ldapdump
