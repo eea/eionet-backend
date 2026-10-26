@@ -1,7 +1,7 @@
 # Eionet backend: local development
 
 Runs everything in Docker: Plone 6 backend, a local test LDAP server with the
-Eionet schema and fake data, and mailtrap to catch outgoing email.
+Eionet schema and fake data, and Mailpit to catch outgoing email.
 
 The add-ons are cloned into `./sources` and mounted into the container, so
 template and JavaScript changes show up without rebuilding.
@@ -15,7 +15,7 @@ template and JavaScript changes show up without rebuilding.
 
     cd develop
     make            # clone sources + build images
-    make start      # start Plone (creates the Classic site on first run), LDAP, mailtrap
+    make start      # start Plone (creates the Classic site on first run), LDAP, Mailpit
     make setup      # create the account tools in the site
 
 Then open:
@@ -23,7 +23,7 @@ Then open:
 * Plone: http://localhost:8080/Plone (`admin:admin`)
 * Dashboard: http://localhost:8080/Plone/eionet-account-tools/eionet_account_tools
 * Password reset: http://localhost:8080/Plone/password-reset
-* Mailtrap: http://localhost:8888
+* Mail (Mailpit, no login): http://localhost:8888
 
 ## Test LDAP
 

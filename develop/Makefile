@@ -37,10 +37,10 @@ build:			## Build the release image and the develop image
 	docker compose build
 
 .PHONY: start
-start:			## Start Plone, test LDAP and mailtrap (creates the site on first run)
+start:			## Start Plone, test LDAP and a mail catcher (creates the site on first run)
 	docker compose up -d
 	echo "Plone:    http://localhost:8080/Plone (admin:admin)"
-	echo "Mailtrap: http://localhost:8888"
+	echo "Mail:     http://localhost:8888 (Mailpit, no login)"
 
 .PHONY: setup
 setup:			## Create the account tools inside the site (idempotent)

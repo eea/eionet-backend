@@ -77,9 +77,14 @@ services:
     - ldap_data:/var/lib/ldap
 
   mailtrap:
-    image: eaudeweb/mailtrap
+    # Mailpit instead of eaudeweb/mailtrap: native on Apple Silicon (mailtrap's
+    # IMAP login crashes under emulation) and no webmail login. Keeps the
+    # service name and SMTP port 25, so Plone's mail settings are unchanged.
+    image: axllent/mailpit:v1.27
+    environment:
+      MP_SMTP_BIND_ADDR: "0.0.0.0:25"
     ports:
-    - "8888:80"
+    - "8888:8025"
     - "2525:25"
 
 volumes:
