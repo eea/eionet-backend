@@ -115,6 +115,8 @@ labeledURI: https://example.com/ispra
 uniqueMember: uid=marco,ou=Users,o=EIONET,l=Europe
 
 # --- Roles (role "a-b-c" lives at cn=a-b-c,cn=a-b,cn=a,ou=Roles) ---
+# A member of a role is also a member of every parent role, as eea.usersdb
+# add_to_role does; disable/remove_from_role relies on it.
 
 dn: cn=eionet,ou=Roles,o=EIONET,l=Europe
 objectClass: top
@@ -125,6 +127,8 @@ cn: eionet
 ou: eionet
 description: Eionet
 uniqueMember:
+uniqueMember: uid=anna,ou=Users,o=EIONET,l=Europe
+uniqueMember: uid=marco,ou=Users,o=EIONET,l=Europe
 permittedSender: owners
 owner: uid=testadmin,ou=Users,o=EIONET,l=Europe
 
@@ -137,6 +141,7 @@ cn: eionet-nfp
 ou: nfp
 description: Eionet National Focal Points
 uniqueMember:
+uniqueMember: uid=anna,ou=Users,o=EIONET,l=Europe
 permittedSender: owners
 
 dn: cn=eionet-nfp-mc,cn=eionet-nfp,cn=eionet,ou=Roles,o=EIONET,l=Europe
@@ -148,6 +153,7 @@ cn: eionet-nfp-mc
 ou: mc
 description: Eionet NFPs - EEA member countries
 uniqueMember:
+uniqueMember: uid=anna,ou=Users,o=EIONET,l=Europe
 permittedSender: owners
 
 dn: cn=eionet-nfp-mc-dk,cn=eionet-nfp-mc,cn=eionet-nfp,cn=eionet,ou=Roles,o=EIONET,l=Europe
@@ -172,6 +178,7 @@ cn: eionet-nrc
 ou: nrc
 description: Eionet National Reference Centres
 uniqueMember:
+uniqueMember: uid=marco,ou=Users,o=EIONET,l=Europe
 permittedSender: owners
 
 dn: cn=eionet-nrc-air,cn=eionet-nrc,cn=eionet,ou=Roles,o=EIONET,l=Europe
@@ -183,6 +190,7 @@ cn: eionet-nrc-air
 ou: air
 description: Eionet NRC Air quality
 uniqueMember:
+uniqueMember: uid=marco,ou=Users,o=EIONET,l=Europe
 permittedSender: owners
 
 dn: cn=eionet-nrc-air-it,cn=eionet-nrc-air,cn=eionet-nrc,cn=eionet,ou=Roles,o=EIONET,l=Europe
@@ -296,6 +304,7 @@ cn: eionet-data
 ou: data
 description: Eionet group data
 uniqueMember:
+uniqueMember: uid=marco,ou=Users,o=EIONET,l=Europe
 permittedSender: owners
 
 dn: cn=eionet-foodsystems,cn=eionet,ou=Roles,o=EIONET,l=Europe
