@@ -98,3 +98,21 @@ regexes = [
   '''password='zope''',
 ]
 
+[[allowlists]]
+description = "Allow the local test LDAP seed (fake directory, dev-only passwords)"
+paths = [
+  '''(?i)(^|/)develop/ldap/seed\.ldif$''',
+]
+
+[[allowlists]]
+description = "Allow local development test-user and admin defaults in the develop Makefile"
+condition = "AND"
+paths = [
+  '''(?i)(^|/)develop/Makefile$''',
+]
+regexTarget = "line"
+regexes = [
+  '''plone-test''',
+  '''admin:admin''',
+]
+

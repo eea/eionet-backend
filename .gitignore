@@ -16,3 +16,6 @@ var/
 
 # ZMI exports may contain credentials
 *.zexp
+
+# Local analysis notes, not published
+docs/
