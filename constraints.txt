@@ -7,4 +7,4 @@
 eea.ldapadmin==4.4
 eea.usersdb==2.7
 eea.userseditor==2.6
-naaya.ldapdump==2.0.1
+naaya.ldapdump==2.0.3
