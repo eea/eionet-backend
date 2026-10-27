@@ -11,5 +11,4 @@ COPY sources.ini /app/
 RUN bin/pip install "mxdev>=3.0.0" \
  && bin/mxdev -c sources.ini \
  && bin/pip install -r requirements-mxdev.txt \
- && bin/pip install dnspython==2.8.0 \
  && find /app -not -user plone -exec chown plone:plone {} \+
