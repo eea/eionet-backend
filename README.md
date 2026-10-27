@@ -13,22 +13,6 @@ Add-ons:
 
 Based on [eeacms/plone-backend](https://github.com/eea/plone-backend)
 
-## Site layout
-
-Created by `scripts/setup_tools.py`, mirroring the old portal paths:
-
-| Path                                                       | Tool                    |
-| ---------------------------------------------------------- | ----------------------- |
-| `/eionet-account-tools/eionet_account_tools`               | Dashboard               |
-| `/eionet-account-tools/eionet_account_tools/users`         | User Admin              |
-| `/eionet-account-tools/eionet_account_tools/organisations` | Organisations           |
-| `/eionet-account-tools/eionet_account_tools/roles`         | Roles Editor            |
-| `/ldap-roles`                                              | Roles Editor (root)     |
-| `/ldap-organisations`                                      | Organisations (root)    |
-| `/password-reset`                                          | Password reset (public) |
-| `/profile/profile-editor`                                  | Profile editor          |
-| `/directory/user`                                          | User details            |
-
 ## Configuration
 
 | Variable                                 | Used by      | Description                                                                                  |

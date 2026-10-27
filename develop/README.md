@@ -48,36 +48,6 @@ Refresh the SQLite cache that User Admin uses for search and duplicate checks
 
     make dump
 
-## Known issues (Plone 6 port in progress)
-
-The released add-ons and their `develop` branches do not start on Plone 6.
-`sources.ini` therefore uses the `plone6` branches of `eea.ldapadmin` and
-`eea.userseditor` until they are merged and released. If your `./sources`
-checkouts predate this, switch them and rebuild:
-
-    git -C sources/eea.ldapadmin checkout plone6
-    git -C sources/eea.userseditor checkout plone6
-    make build && make start
-
-Fixed on the `plone6` branches:
-
-* `App.class_init` (removed in Zope 5) → `AccessControl.class_init`
-* `sparql-client` (pins `dnspython<2`) replaced by `requests`
-* `jellyfish>=1.0`, unpinned `colander`, `naaya.ldapdump>=2.0`, test packages moved to the test extra
-* `yaml.safe_load` in `eionet_profile.py`
-* default view for `/directory/user?uid=…`
-
-Remaining:
-
-| Area | Issue |
-|---|---|
-| Image | `dnspython` override in the Dockerfiles: remove once the `plone6` releases are pinned |
-| Add-ons (packaging) | `bin/dump_ldap` is `eea.ldapadmin`'s wrapper, which needs the storage path as an argument; use `scripts/dump_ldap.py` (`make dump`) |
-| UI | `require()` / `requirejs()` in 15 templates: DataTables, jQuery UI, tipsy, select2 do not load |
-| UI | `userdetails/simple.zpt:82`: `int(path('repeat/role/odd'))` fails under Chameleon |
-| UI | Plone 5 markup/classes; links to `www.eionet.europa.eu/styles/eionet2007/*.css` |
-| Local LDAP | No password policy overlay, so `pwdChangedTime` / expiry are not shown |
-
 ## Develop add-ons
 
 Branches are set in `sources.ini`. After changing them:
