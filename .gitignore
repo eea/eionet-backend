@@ -1,0 +1,21 @@
+bin/
+constraints-mxdev.txt
+include/
+__pycache__/
+inituser
+lib/
+lib64
+pyvenv.cfg
+requirements-mxdev.txt
+share/
+sources/
+var/
+*.bak
+*~
+.DS_Store
+
+# ZMI exports may contain credentials
+*.zexp
+
+# Local analysis notes, not published
+docs/

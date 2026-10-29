@@ -1,0 +1,10 @@
+-f https://eggrepo.eea.europa.eu/simple/
+-f https://eggrepo.eea.europa.eu/d/eea.ldapadmin/
+-f https://eggrepo.eea.europa.eu/d/eea.usersdb/
+-f https://eggrepo.eea.europa.eu/d/eea.userseditor/
+# naaya.ldapdump 2.x (Python 3 / Zope 5 port) is published on the Eau de Web egg server
+-f https://eggshop.eaudeweb.ro/
+eea.ldapadmin==5.0
+eea.usersdb==2.7
+eea.userseditor==3.0
+naaya.ldapdump==2.0.3
