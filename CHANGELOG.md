@@ -5,7 +5,8 @@
 - LDAP control panel: add/remove/move buttons of the attribute maps. The
   `yafowil.widget.dict` and `yafowil.widget.array` wheels install with
   underscore `.dist-info` names, so `yafowil.plone` left their JS/CSS out of
-  its bundle; the image renames them to the dotted names
+  its bundle; the image renames them to the dotted names, and embeds their
+  icons in the widget CSS (relative image URLs do not resolve in the bundle)
 
 ## 6.1.4-1 (2026-10-29)
 

@@ -26,3 +26,8 @@ RUN cd /app/lib/python3.12/site-packages \
          [ -e "$d" ] || continue; \
          mv "$d" "$(echo "$d" | sed 's/^yafowil_widget_/yafowil.widget./')"; \
        done
+
+# In the bundle the widgets' relative icon URLs do not resolve: embed the icons
+COPY scripts/yafowil_inline_icons.py /tmp/
+RUN ./bin/python /tmp/yafowil_inline_icons.py /app/lib/python3.12/site-packages \
+    && rm /tmp/yafowil_inline_icons.py
