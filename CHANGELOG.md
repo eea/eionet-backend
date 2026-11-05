@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- eea.ldapadmin 5.1: Plone 6 Classic UI templates (plain jQuery instead of
+  RequireJS, jQuery 3 fixes, Plone 6 layout, Operations in the right column)
 - LDAP control panel: add/remove/move buttons of the attribute maps. The
   `yafowil.widget.dict` and `yafowil.widget.array` wheels install with
   underscore `.dist-info` names, so `yafowil.plone` left their JS/CSS out of
