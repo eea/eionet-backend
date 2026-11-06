@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- eea.ldapadmin 5.2, eea.userseditor 3.1
 - account tools directly in /eionet-account-tools, user details page at
   /user, /users/<uid> redirect, no /directory, /ldap-roles and
   /ldap-organisations
