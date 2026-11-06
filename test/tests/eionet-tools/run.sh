@@ -49,13 +49,17 @@ auth="$(echo -n 'admin:admin' | base64)"
 # Public: password reset, anonymous
 [[ "$(get 'http://plone:8080/Plone/password-reset')" == *"password"* ]]
 
-# Admin tools: dashboard (folder default page) lists the three tools
+# Admin tools: the LDAP Explorer lists the three tools
 dashboard="$(get_auth 'http://plone:8080/Plone/eionet-account-tools' "$auth")"
 [[ "$dashboard" == *"Roles Editor"* ]]
 [[ "$dashboard" == *"User Admin"* ]]
 [[ "$dashboard" == *"Organisations"* ]]
 
-# Root-level tool instances exist and carry the LDAP settings from the setup
-# script (their main pages need a reachable LDAP, so check the settings form)
-[[ "$(get_auth 'http://plone:8080/Plone/ldap-roles/manage_edit' "$auth")" == *"ldap.invalid"* ]]
-[[ "$(get_auth 'http://plone:8080/Plone/ldap-organisations/manage_edit' "$auth")" == *"ldap.invalid"* ]]
+# The tools carry the LDAP settings from the setup script (their main pages
+# need a reachable LDAP, so check the settings form)
+[[ "$(get_auth 'http://plone:8080/Plone/eionet-account-tools/roles/manage_edit' "$auth")" == *"ldap.invalid"* ]]
+[[ "$(get_auth 'http://plone:8080/Plone/eionet-account-tools/organisations/manage_edit' "$auth")" == *"ldap.invalid"* ]]
+[[ "$(get_auth 'http://plone:8080/Plone/user/manage_edit' "$auth")" == *"ldap.invalid"* ]]
+
+# /users/<uid> redirect script
+[[ "$(get_auth 'http://plone:8080/Plone/users/manage_main' "$auth")" == *"traverse_subpath"* ]]
