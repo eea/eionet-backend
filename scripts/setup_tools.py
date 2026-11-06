@@ -4,11 +4,12 @@ Run after the site exists:
 
     bin/zconsole run etc/zope.conf scripts/setup_tools.py
 
-Idempotent: existing objects are left untouched. Paths mirror the old Eionet
-portal, because the add-on templates hard-code some of them
-(e.g. /eionet-account-tools/eionet_account_tools/users).
+Idempotent: existing objects are left untouched. The add-ons find the user
+details page and the account tools by meta type; /password-reset and
+/profile/profile-editor are still hard-coded in their templates.
 """
 from AccessControl.SecurityManagement import newSecurityManager
+from Products.PythonScripts.PythonScript import manage_addPythonScript
 from Testing.makerequest import makerequest
 from plone import api
 from zope.component.hooks import setSite
@@ -48,34 +49,35 @@ LDAP_CONFIG = {
 
 # (parent path, id, title, class); "" = site root
 TOOLS = [
-    ("eionet-account-tools", "eionet_account_tools",
-     "Eionet User Account Tools", Dashboard),
-    ("eionet-account-tools/eionet_account_tools", "users",
-     "User Admin", UsersAdmin),
-    ("eionet-account-tools/eionet_account_tools", "organisations",
-     "Organisations", OrganisationsEditor),
-    ("eionet-account-tools/eionet_account_tools", "roles",
-     "Roles Editor", RolesEditor),
-    # Root-level instances linked from Forum, Projects and the NFP pages
-    ("", "ldap-roles", "Roles", RolesEditor),
-    ("", "ldap-organisations", "Organisations", OrganisationsEditor),
+    ("", "eionet-account-tools", "Eionet User Account Tools", Dashboard),
+    ("eionet-account-tools", "users", "User Admin", UsersAdmin),
+    ("eionet-account-tools", "organisations", "Organisations",
+     OrganisationsEditor),
+    ("eionet-account-tools", "roles", "Roles Editor", RolesEditor),
+    ("", "user", "User details", UserDetails),
     ("", "password-reset", "Password Reset", PasswordResetTool),
     ("profile", "profile-editor", "Eionet account", UsersEditor),
-    ("directory", "user", "User details", UserDetails),
 ]
 
 # Plone folders that hold the tools; published so non-owners can reach them
 FOLDERS = [
-    ("eionet-account-tools", "Eionet Account Tools"),
     ("profile", "Profile"),
-    ("directory", "Directory"),
 ]
 
 # Folder -> tool shown when the folder itself is opened
 DEFAULT_PAGES = {
-    "eionet-account-tools": "eionet_account_tools",
     "profile": "profile-editor",
 }
+
+# /users/<uid>: public URI of a person, as on the old portal
+USERS_SCRIPT = """\
+from Products.PythonScripts.standard import url_quote
+uid = '/'.join(traverse_subpath)
+url = context.portal_url() + '/user'
+if uid:
+    url += '?uid=' + url_quote(uid)
+context.REQUEST.RESPONSE.redirect(url, lock=0)
+"""
 
 
 def ensure_folder(site, folder_id, title):
@@ -86,6 +88,15 @@ def ensure_folder(site, folder_id, title):
     api.content.transition(obj=folder, transition="publish")
     logger.info("Created folder /%s", folder_id)
     return folder
+
+
+def ensure_users_script(site):
+    if "users" in site.objectIds():
+        logger.info("Exists: users")
+        return
+    manage_addPythonScript(site, "users")
+    site["users"].ZPythonScript_edit("", USERS_SCRIPT)
+    logger.info("Created /users")
 
 
 def set_default_page(site, folder_id, page_id):
@@ -165,6 +176,7 @@ def main(app):
         ensure_tool(site, parent_path, tool_id, title, klass)
     for folder_id, page_id in DEFAULT_PAGES.items():
         set_default_page(site, folder_id, page_id)
+    ensure_users_script(site)
     configure_mailhost(site)
     write_ldapdump_config()
 

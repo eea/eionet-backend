@@ -69,7 +69,7 @@ Same image, same `/data/ldapdump` volume, run as the `plone` user:
 Serve the site at the domain root with Zope virtual hosting, e.g.
 `/VirtualHostBase/https/<domain>:443/Plone/VirtualHostRoot/`, so URLs are
 `https://<domain>/eionet-account-tools`. The add-on templates use root-relative
-links such as `/directory/user`, which only work with the site at the root.
+links such as `/password-reset`, which only work with the site at the root.
 
 ## Tests
 
