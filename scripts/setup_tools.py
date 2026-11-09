@@ -9,6 +9,7 @@ details page and the account tools by meta type; /password-reset and
 /profile/profile-editor are still hard-coded in their templates.
 """
 from AccessControl.SecurityManagement import newSecurityManager
+from AccessControl.SpecialUsers import system
 from Products.PythonScripts.PythonScript import manage_addPythonScript
 from Testing.makerequest import makerequest
 from plone import api
@@ -164,8 +165,8 @@ def configure_mailhost(site):
 
 def main(app):
     app = makerequest(app)
-    admin = app.acl_users.getUserById("admin").__of__(app.acl_users)
-    newSecurityManager(None, admin)
+    # the Zope root may have no "admin" user
+    newSecurityManager(None, system)
 
     site = app[SITE_ID]
     setSite(site)
