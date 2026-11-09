@@ -1,10 +1,12 @@
 FROM eeacms/plone-backend:6.1.4-23
 
 # Classic UI site; drop the base image's Volto profile (eea.kitkat:default)
+# LDAPTLS_CACERT: python-ldap does not find the CA bundle on its own (ldaps)
 ENV TYPE=classic \
     PROFILES="" \
     ANSWERS=eionet \
-    LDAP_DISK_STORAGE=/data/ldapdump
+    LDAP_DISK_STORAGE=/data/ldapdump \
+    LDAPTLS_CACERT=/etc/ssl/certs/ca-certificates.crt
 
 COPY requirements.txt constraints.txt /app/
 COPY etc/package-includes/ /app/etc/package-includes/

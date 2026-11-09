@@ -6,5 +6,5 @@
 -f https://eggshop.eaudeweb.ro/
 eea.ldapadmin==5.2
 eea.usersdb==2.7
-eea.userseditor==3.1
+eea.userseditor==3.2
 naaya.ldapdump==2.0.3
