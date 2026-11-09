@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Fix the LDAP dump failing on ldaps (CA bundle for python-ldap)
 - eea.ldapadmin 5.2, eea.userseditor 3.1
 - account tools directly in /eionet-account-tools, user details page at
   /user, /users/<uid> redirect, no /directory, /ldap-roles and
