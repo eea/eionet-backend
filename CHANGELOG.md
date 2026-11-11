@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- Plone 6.1.6 (Plone security advisory 20261110)
 - Fix setup_tools.py failing without an admin user in the Zope root
 - eea.userseditor 3.2
 - Fix the LDAP dump failing on ldaps (CA bundle for python-ldap)

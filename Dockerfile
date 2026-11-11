@@ -1,4 +1,4 @@
-FROM eeacms/plone-backend:6.1.4-23
+FROM eeacms/plone-backend:6.1.6-1
 
 # Classic UI site; drop the base image's Volto profile (eea.kitkat:default)
 # LDAPTLS_CACERT: python-ldap does not find the CA bundle on its own (ldaps)
